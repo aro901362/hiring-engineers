@@ -1,0 +1,59 @@
+curl -X POST "https://api.datadoghq.com/api/v1/dashboard/public" 
+-H "Content-Type: application/json" 
+-H "DD-API-KEY: a64209b2a609a2ad87b6119662937bdf" 
+-H "DD-APPLICATION-KEY: a64209b2a609a2ad87b6119662937bdf" 
+-d @- << EOF
+{
+	"title": "Anthony1 Dashboard",
+	"description": "",
+	"widgets": [
+		{
+			"id": 1229486265109106,
+			"definition": {
+				"title": "",
+				"title_size": "16",
+				"title_align": "left",
+				"show_legend": false,
+				"type": "timeseries",
+				"requests": [
+					{
+						"formulas": [
+							{
+								"formula": "anomalies(query1, 'basic', 1)"
+							}
+						],
+						"response_format": "timeseries",
+						"queries": [
+							{
+								"query": "sum:my_metric.count{host:vistaar} by {host}.rollup(avg, 3600)",
+								"data_source": "metrics",
+								"name": "query1"
+							}
+						],
+						"style": {
+							"palette": "dog_classic",
+							"line_type": "solid",
+							"line_width": "normal"
+						},
+						"display_type": "bars"
+					}
+				],
+				"yaxis": {
+					"include_zero": true,
+					"scale": "linear",
+					"label": "",
+					"min": "auto",
+					"max": "auto"
+				},
+				"markers": []
+			}
+		}
+	],
+	"template_variables": [],
+	"layout_type": "ordered",
+	"is_read_only": false,
+	"notify_list": [],
+	"reflow_type": "auto",
+	"id": "rup-7sr-mev"
+}
+EOF
